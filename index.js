@@ -45,8 +45,18 @@ mongoose
     console.log(res);
     return Recipe.insertMany(data);
   })
-  .then((res) => {})
-  .then((res) => {})
+  .then((res) => {
+    console.log("Data has been inserted");
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100});
+  })
+  .then((res) => {
+    console.log("Rigatoni alla Genovese has been updated!");
+    return Recipe.deleteOne({title: "Carrot Cake"});
+  })
+  .then((res) => {
+    console.log("Carrot cake has been removed!");
+    mongoose.connection.close();
+  })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
